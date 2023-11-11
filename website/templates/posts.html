@@ -1,3 +1,39 @@
 {%extends "base.html"%} {% block title %}Posts{% endblock %} {% block content %}
-<h1>welcome Posts</h1>
+<h1 align="center">{%block header%}Posts{%endblock%}</h1>
+<div id="posts"></div>
+{%for post in posts%}
+<div class="card border-dark">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <a href="/posts/{{post.User.username}}">{{post.User.username}}</a>
+    {% if user.id == post.author%}
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-sm btn-primary dropdown-toggle"
+        data-bs-toggle="dropdown"
+      ></button>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="/delete-post/{{post.id}}" class="dropdown-item">Delete</a>
+        </li>
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <div class="card-text">{{post.text}}</div>
+  </div>
+  <div class="card-footer text-muted">{{post.date_created}}</div>
+</div>
+</br>
+{%endfor%} 
+{%block footer%}
+<div align="center">
+    <a href="/create-post">
+        <button type="button" class="btn btn-primary btn-lg">
+            create post +
+        </button>
+    </a>
+</div>
+{%endblock%}
 {%endblock%}
